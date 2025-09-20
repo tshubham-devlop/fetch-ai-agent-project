@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EchoNet Sensor Registration</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container { 
+            background: #ffffff; 
+            padding: 2rem 3rem; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12); 
+            width: 100%; 
+            max-width: 450px;
+            border-top: 4px solid #007bff;
+        }
+        h1 { 
+            margin-top: 0; 
+            text-align: center; 
+            color: #007bff;
+            font-weight: 600;
+        }
+        .form-group { 
+            margin-bottom: 1.25rem; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            font-weight: 500; 
+            color: #555; 
+        }
+        input { 
+            width: 100%; 
+            padding: 0.75rem; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        button { 
+            width: 100%; 
+            padding: 0.85rem; 
+            background: #007bff; 
+            color: #fff; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 1.1rem; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: background-color 0.2s; 
+        }
+        button:hover { 
+            background: #0056b3; 
+        }
+        .response { 
+            margin-top: 1.5rem; 
+            padding: 1rem; 
+            border-radius: 6px; 
+            text-align: center; 
+            font-weight: 500; 
+        }
+        .success { 
+            background: #d4edda; 
+            color: #155724; 
+            border-left: 5px solid #28a745;
+        }
+        .error { 
+            background: #f8d7da; 
+            color: #721c24; 
+            border-left: 5px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register New EchoNet Sensor</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="macAddress">MAC Address</label>
+                <input type="text" id="macAddress" required placeholder="e.g., 00:1A:2B:3C:4D:5E">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" required placeholder="e.g., Delhi">
+            </div>
+            <div class="form-group">
+                <label for="area">Area / Locality</label>
+                <input type="text" id="area" required placeholder="e.g., Dwarka">
+            </div>
+            <div class="form-group">
+                <label for="sectorNo">Sector No.</label>
+                <input type="text" id="sectorNo" required placeholder="e.g., 7">
+            </div>
+            <div class="location-grid">
+                <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input type="number" step="any" id="latitude" required placeholder="e.g., 28.5921">
+                </div>
+                <div class="form-group">
+                    <label for="longitude">Longitude</label>
+                    <input type="number" step="any" id="longitude" required placeholder="e.g., 77.0460">
+                </div>
+            </div>
+            <button type="submit">Register and Launch Agent</button>
+        </form>
+        <div id="response" class="response" style="display:none;"></div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const responseDiv = document.getElementById('response');
+            responseDiv.style.display = 'none'; // Hide previous response
+
+            const formData = {
+                mac_address: document.getElementById('macAddress').value,
+                city: document.getElementById('city').value,
+                area: document.getElementById('area').value,
+                sector_no: document.getElementById('sectorNo').value,
+                latitude: document.getElementById('latitude').value,
+                longitude: document.getElementById('longitude').value,
+            };
+
+            try {
+                const res = await fetch('http://127.0.0.1:5000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await res.json();
+                responseDiv.style.display = 'block';
+
+                if (res.ok) {
+                    responseDiv.className = 'response success';
+                    responseDiv.textContent = data.message;
+                } else {
+                    throw new Error(data.message || 'An unknown error occurred.');
+                }
+            } catch (error) {
+                responseDiv.className = 'response error';
+                responseDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
+

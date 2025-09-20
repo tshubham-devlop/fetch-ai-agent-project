@@ -1,0 +1,50 @@
+{
+    "_network_services": {
+        "notary_agent_address": "agent1qwmhdqv4smh9c5z82rdx0q09nqchtgyw2ewgl0zr8rqu4jtaq2psxp0n2ya"
+    },
+    "00:1A:2B:3C:4D:5E": {
+        "loc_id": "LOC001",
+        "name": "Dwarka , 7, Delhi",
+        "latitude": 28.555594,
+        "longitude": 77.042797,
+        "agent_name": "worker_agent_1",
+        "agent_seed": "hour armed goddess false smoke oak physical clean near place concert will",
+        "agent_port": 8010
+    },
+    "11:22:33:44:55:66": {
+        "loc_id": "LOC002",
+        "name": "Saket , 8, Delhi",
+        "latitude": 28.584949,
+        "longitude": 77.058284,
+        "agent_name": "worker_agent_2",
+        "agent_seed": "high pass neck divide crisp child deliver erupt silk athlete misery talent",
+        "agent_port": 8011
+    },
+    "AA:BB:CC:DD:EE:FF": {
+        "loc_id": "LOC003",
+        "name": "Connaught Place , 12, Delhi",
+        "latitude": 28.5712425,
+        "longitude": 77.0582575,
+        "agent_name": "worker_agent_3",
+        "agent_seed": "rail endorse spirit nest hotel stairs skin elephant twin surge error edge",
+        "agent_port": 8012
+    },
+    "F0:E1:D2:C3:B4:A5": {
+        "loc_id": "LOC004",
+        "name": "Dwarka, 7, Delhi",
+        "latitude": 28.5656109,
+        "longitude": 77.0670366,
+        "agent_name": "worker_agent_4",
+        "agent_seed": "member climb hope vanish gauge buzz canyon tape taste viable attend online",
+        "agent_port": 8013
+    },
+    "11:2A:00:3B:4D:22": {
+        "loc_id": "LOC005",
+        "name": "NIT, 9, Jalandhar",
+        "latitude": 45.8,
+        "longitude": 56.19,
+        "agent_name": "worker_agent_5",
+        "agent_seed": "gold broken example fruit cliff crazy forum walk obscure glory luxury number",
+        "agent_port": 8014
+    }
+}

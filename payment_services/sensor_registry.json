@@ -1,0 +1,12 @@
+{
+    "_network_services": {},
+    "00:1A:2B:3C:4D:5E": {
+        "loc_id": "LOC001",
+        "name": "Dwarka , 7, Delhi",
+        "latitude": 28.555594,
+        "longitude": 77.042797,
+        "agent_name": "worker_agent_1",
+        "agent_seed": "check helmet current carry toddler punch useful tone toe kiwi rescue apology",
+        "agent_port": 8010
+    }
+}
