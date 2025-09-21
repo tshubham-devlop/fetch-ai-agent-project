@@ -21,13 +21,15 @@ if not ASI_API_KEY or "YOUR" in ASI_API_KEY:
 else:
     asi_client = AsyncOpenAI(api_key=ASI_API_KEY, base_url="https://api.asi1.ai/v1")
 
-# --- Agent Definition (with Mailbox for Agentverse) ---
+# --- Agent Definition (Pure Mailbox for Deployment) ---
 FLEET_MANAGER_SEED = "echonet_fleet_manager_super_secret_seed_phrase"
 agent = Agent(
     name="EchoNetFleetManager",
     seed=FLEET_MANAGER_SEED,
-    # The mailbox connects the agent to the Agentverse messaging network, making it public.
+    # The mailbox connects the agent to the Agentverse messaging network.
     mailbox=f"{AGENTVERSE_API_KEY}@agentverse.ai",
+    # The 'register_on_contract' argument is removed to ensure compatibility
+    # with the library version installed in the deployment environment.
 )
 fund_agent_if_low(agent.wallet.address())
 
@@ -121,7 +123,7 @@ async def query_llm_with_rag(user_query: str) -> str:
 # --- Agent Logic ---
 @agent.on_event("startup")
 async def startup(ctx: Context):
-    ctx.logger.info(f"Fleet Manager started on Agentverse. Address: {agent.address}")
+    ctx.logger.info(f"Fleet Manager started on Agentverse. Address: {ctx.address}")
     load_knowledge_base()
 
 @agent.on_interval(period=30.0)
@@ -137,7 +139,6 @@ async def handle_query(ctx: Context, sender: str, msg: QueryRequest):
 
 # --- Main Execution ---
 if __name__ == "__main__":
-    # FIX: The publish_manifest flag belongs on the .include() method, not the Agent constructor.
     agent.include(query_protocol, publish_manifest=True)
     agent.run()
 

@@ -1,4 +1,4 @@
-uagents==0.16.2
+uagents
 Flask
 requests
 hyperon
