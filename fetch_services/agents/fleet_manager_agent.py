@@ -28,8 +28,6 @@ agent = Agent(
     seed=FLEET_MANAGER_SEED,
     # The mailbox connects the agent to the Agentverse messaging network.
     mailbox=f"{AGENTVERSE_API_KEY}@agentverse.ai",
-    # The 'register_on_contract' argument is removed to ensure compatibility
-    # with the library version installed in the deployment environment.
 )
 fund_agent_if_low(agent.wallet.address())
 
@@ -123,7 +121,9 @@ async def query_llm_with_rag(user_query: str) -> str:
 # --- Agent Logic ---
 @agent.on_event("startup")
 async def startup(ctx: Context):
-    ctx.logger.info(f"Fleet Manager started on Agentverse. Address: {ctx.address}")
+    # FIX: The agent's address is an attribute of the main 'agent' object,
+    # not the context object passed to the startup event handler.
+    ctx.logger.info(f"Fleet Manager started on Agentverse. Address: {agent.address}")
     load_knowledge_base()
 
 @agent.on_interval(period=30.0)
